@@ -2,6 +2,8 @@ package com.fei.divider
 
 import android.app.Fragment
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
  * 描述:
  * 作者:Li
  */
-class ListFragment2 : Fragment() {
+class ListFragment3 : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_list, container, false)
     }
@@ -29,7 +31,13 @@ class ListFragment2 : Fragment() {
 
         val divider: RecyclerView.ItemDecoration =
                 DividerHelper.Builder()
-                        .divider(ActivityCompat.getDrawable(activity, R.drawable.shape_divider_brand_left_padding))
+                        .divider { position, recyclerView ->
+                            if (position % 2 == 0) {
+                                ColorDrawable(Color.RED)
+                            } else {
+                                ActivityCompat.getDrawable(activity, R.drawable.shape_divider_brand_left_padding)
+                            }
+                        }
                         .marginLeft(100)
                         .marginRight(100)
                         .build()
